@@ -1,0 +1,16 @@
+services:
+  app:
+    build: .
+    container_name: pm2-server
+    ports:
+      - "3000:3000"  # Expose port 3000 to the host machine
+    volumes:
+      - ./programs:/programs  # Mount the programs folder to the container
+    environment:
+      - NODE_ENV=development  # You can change this to "production" in production environments
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PM2 Process Manager</title>
+    <link rel="stylesheet" href="css/style.css">
+<body>
+    <div class="container">
+        <h1>PM2 Process Manager</h1>
+
+        <!-- Start Process Form -->
+        <div class="form-group">
+            <label for="start-script">Start Process (Script Name):</label>
+            <input type="text" id="start-script" placeholder="Enter script name (e.g., /programs/<FILE_NAME>)">
+            <button onclick="startProcess()">Start Process</button>
+        </div>
+
+        <!-- Stop Process Form -->
+        <div class="form-group">
+            <button onclick="stopProcess()">Stop Process</button>
+        </div>
+
+        <!-- Restart Process Form -->
+        <div class="form-group">
+            <button onclick="restartProcess()">Restart Process</button>
+        </div>
+
+        <!-- List Processes Form -->
+        <div class="form-group">
+            <button onclick="listProcesses()">List Processes</button>
+        </div>
+
+        <!-- PM2 Processes Display -->
+        <div id="pm2-processes" class="pm2-list">
+            <h2>PM2 Running Processes</h2>
+            <div id="loading">Loading processes...</div>
+            <div id="pm2-list"></div>
+        </div>
+
+        <!-- Result Display -->
+        <div class="result" id="result">
+            <p>Results will be displayed here...</p>
+        </div>
+    </div>
+
+    <!-- External JS Files -->
+    <script src="js/config.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
