@@ -24,30 +24,6 @@ pm2.connect((err) => {
     console.log('Connected to PM2');
 });
 
-// Function to recursively search for `run.config.yaml` in directories
-const findConfigFiles = (dir) => {
-    let configFiles = [];
-
-    // Read the contents of the current directory
-    const files = fs.readdirSync(dir);
-
-    // Check each item in the directory
-    files.forEach((file) => {
-        const fullPath = path.join(dir, file);
-        const stat = fs.statSync(fullPath);
-
-        if (stat.isDirectory()) {
-            // Recursively search in subdirectories
-            configFiles = configFiles.concat(findConfigFiles(fullPath));
-        } else if (file === 'run.config.yaml') {
-            // Found a run.config.yaml file
-            configFiles.push(fullPath);
-        }
-    });
-
-    return configFiles;
-};
-
 // Function to parse the `run.config.yaml` file
 const parseConfig = (filePath) => {
     try {
@@ -58,24 +34,8 @@ const parseConfig = (filePath) => {
         console.error('Error reading or parsing YAML file:', e);
         return null;
     }
+
 };
-
-// Endpoint to get all available configs
-app.get('/api/configs', (req, res) => {
-    const rootDir = path.join(__dirname, '../'); // Start searching from the root directory
-    const configFiles = findConfigFiles(rootDir); // Find all `run.config.yaml` files
-
-    const configs = configFiles.map((filePath) => {
-        const config = parseConfig(filePath);
-        return config ? {
-            path: filePath,
-            script: config.script,
-            args: config.args || [],
-        } : null;
-    }).filter(Boolean); // Filter out any null values if there were parsing errors
-
-    res.json(configs);
-});
 
 // PM2 process management API routes for starting, stopping, restarting processes
 app.post('/api/start', express.json(), (req, res) => {
