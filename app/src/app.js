@@ -24,19 +24,6 @@ pm2.connect((err) => {
     console.log('Connected to PM2');
 });
 
-// Function to parse the `run.config.yaml` file
-const parseConfig = (filePath) => {
-    try {
-        const fileContents = fs.readFileSync(filePath, 'utf8');
-        const config = yaml.load(fileContents);
-        return config;
-    } catch (e) {
-        console.error('Error reading or parsing YAML file:', e);
-        return null;
-    }
-
-};
-
 // PM2 process management API routes for starting, stopping, restarting processes
 app.post('/api/start', express.json(), (req, res) => {
     const { name, script, args = [], env = {}, stop_exit_codes = [0] } = req.body;
