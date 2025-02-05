@@ -1,46 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PM2 Process Manager</title>
     <link rel="stylesheet" href="css/style.css">
+</head>
+
 <body>
+
     <div class="container">
         <h1>PM2 Process Manager</h1>
 
-        <!-- Start Process Form -->
-        <div class="form-group">
-            <label for="start-script">Start Process (Script Name):</label>
-            <input type="text" id="start-script" placeholder="Enter script name (e.g., /programs/<FILE_NAME>)">
-            <button onclick="startProcess()">Start Process</button>
+        <div id="show-pm2-processes">
+            <!-- Result Display -->
+            <div class="result" id="result">
+                <p>Results will be displayed here...</p>
+            </div>
         </div>
 
-        <!-- Stop Process Form -->
-        <div class="form-group">
-            <button onclick="stopProcess()">Stop Process</button>
+        <!-- Tabs for Navigation -->
+        <div class="tabs">
+            <button class="tab-link active" onclick="openTab(event, 'start')">Start Process</button>
+            <button class="tab-link" onclick="openTab(event, 'stop')">Stop Process</button>
+            <button class="tab-link" onclick="openTab(event, 'restart')">Restart Process</button>
         </div>
 
-        <!-- Restart Process Form -->
-        <div class="form-group">
-            <button onclick="restartProcess()">Restart Process</button>
+        <!-- Start Process Tab -->
+        <div id="start" class="tab-content active">
+            <h3>Start Process</h3>
+            <div class="form-group">
+                <label for="start-script-name">Process Name:</label>
+                <input type="text" id="start-script-name" placeholder="Enter script name (e.g., /programs/<FILE_NAME>)">
+            </div>
+
+            <div class="form-group">
+                <label for="start-script-location">Script Location:</label>
+                <input type="text" id="start-script-location"
+                    placeholder="Enter script location (e.g., /programs/<FILE_NAME>)">
+            </div>
+
+            <div class="form-group">
+                <label for="args">Arguments (comma-separated):</label>
+                <input type="text" id="args" placeholder="Enter arguments (e.g., arg1,arg2)">
+            </div>
+
+            <div class="form-group">
+                <label for="env-vars">Environment Variables (key=value, comma-separated):</label>
+                <input type="text" id="env-vars"
+                    placeholder="Enter environment variables (e.g., VAR1=value1, VAR2=value2)">
+            </div>
+
+            <div class="form-group">
+                <button onclick="startProcess()">Start Process</button>
+            </div>
         </div>
 
-        <!-- List Processes Form -->
-        <div class="form-group">
-            <button onclick="listProcesses()">List Processes</button>
+        <!-- Stop Process Tab -->
+        <div id="stop" class="tab-content">
+            <h3>Stop Process</h3>
+            <div class="form-group">
+                <label for="stop-process-select">Select Process to Stop:</label>
+                <select id="stop-process-select">
+                    <option value="">Select a process...</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button onclick="stopProcess()">Stop Process</button>
+            </div>
         </div>
 
-        <!-- PM2 Processes Display -->
-        <div id="pm2-processes" class="pm2-list">
-            <h2>PM2 Running Processes</h2>
-            <div id="loading">Loading processes...</div>
-            <div id="pm2-list"></div>
-        </div>
-
-        <!-- Result Display -->
-        <div class="result" id="result">
-            <p>Results will be displayed here...</p>
+        <!-- Restart Process Tab -->
+        <div id="restart" class="tab-content">
+            <h3>Restart Process</h3>
+            <div class="form-group">
+                <label for="restart-process-select">Select Process to Restart:</label>
+                <select id="restart-process-select">
+                    <option value="">Select a process...</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button onclick="restartProcess()">Restart Process</button>
+            </div>
         </div>
     </div>
 
@@ -48,4 +90,5 @@
     <script src="js/config.js"></script>
     <script src="js/script.js"></script>
 </body>
+
 </html>
