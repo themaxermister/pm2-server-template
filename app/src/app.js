@@ -1,11 +1,16 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+const cors = require('cors')
 const path = require('path');
 const pm2 = require('pm2');
-const fs = require('fs');
-const yaml = require('js-yaml');
-const { cwd } = require('process');
 const app = express(express.json());
+
+// TODO: Add CORS options if necessary
+const corsOptions = {
+    origin: 'http://localhost:3000',
+    optionsSuccessStatus: 200
+}
+
+app.use(cors());
 
 // Serve static files (HTML, CSS, JS)
 app.use(express.static(path.join(__dirname, '../public')));
