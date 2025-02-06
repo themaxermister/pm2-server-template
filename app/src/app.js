@@ -4,6 +4,8 @@ const path = require('path');
 const pm2 = require('pm2');
 const app = express(express.json());
 
+app.use(express.json());
+
 // TODO: Add CORS options if necessary
 const corsOptions = {
     origin: 'http://localhost:3000',
@@ -32,12 +34,10 @@ pm2.connect((err) => {
 // PM2 process management API routes for starting, stopping, restarting processes
 app.post('/api/start', express.json(), (req, res) => {
     const { name, script, args = [], env = {}, stop_exit_codes = [0] } = req.body;
-    
-    // Log the provided script and parameters
-    console.log('Starting script:', script);
-    console.log('Process name:', name);
-    console.log('Arguments:', args);
-    console.log('Environment Variables:', env);
+    console.log('Starting process:', name);
+    console.log('Script:', script);
+    console.log('Args:', args);
+    console.log('Env:', env);
 
     pm2.start({
         script: script,
@@ -72,7 +72,6 @@ app.post('/api/stop', (req, res) => {
 
 app.post('/api/restart', (req, res) => {
     const { name } = req.body;
-    console.log('Restarting process:', name);
 
     pm2.restart(name, (err) => {
         pm2.disconnect();
