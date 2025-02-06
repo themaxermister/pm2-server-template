@@ -10,8 +10,9 @@ services:
     environment:
       - NODE_ENV=development  # You can change this to "production" in production environments
     networks:
-      - app-network
+      dockernet:
+        ipv4_address: 192.168.0.101
 
 networks:
   app-network:
-    driver: bridge
+    external: true
