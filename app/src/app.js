@@ -83,6 +83,19 @@ app.post('/api/restart', (req, res) => {
     });
 });
 
+app.post('/api/remove', (req, res) => {
+    const { name } = req.body;
+
+    pm2.delete(name, (err) => {
+        pm2.disconnect();
+        if (err) {
+            console.error('Error removing process:', err);
+            return res.status(500).json({ error: err.message });
+        }
+        res.json({ message: `Process ${name} removed` });
+    });
+});
+
 app.get('/api/list', (req, res) => {
     pm2.list((err, list) => {
         if (err) {

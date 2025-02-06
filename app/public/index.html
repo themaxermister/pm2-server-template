@@ -25,6 +25,7 @@
             <button class="tab-link active" onclick="openTab(event, 'start')">Start Process</button>
             <button class="tab-link" onclick="openTab(event, 'stop')">Stop Process</button>
             <button class="tab-link" onclick="openTab(event, 'restart')">Restart Process</button>
+            <button class="tab-link" onclick="openTab(event, 'remove')">Remove Process</button>
         </div>
 
         <!-- Start Process Tab -->
@@ -84,7 +85,23 @@
                 <button onclick="restartProcess()">Restart Process</button>
             </div>
         </div>
+
+        <!-- Remove Process Tab -->
+        <div id="remove" class="tab-content">
+            <h3>Remove Process</h3>
+            <div class="form-group">
+                <label for="remove-process-select">Select Process to Remove:</label>
+                <select id="remove-process-select">
+                    <option value="">Select a process...</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button onclick="removeProcess()">Remove Process</button>
+            </div>
+        </div>
     </div>
+
+    
 
     <!-- External JS Files -->
     <script src="js/config.js"></script>
